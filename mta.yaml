@@ -24,23 +24,23 @@ modules:
           srv-url: ${default-url}
     requires:
       - name: MyHANAApp-auth
-      - name: MyHANAApp-db
+      - name: NewMyHANAApp
 
-  - name: MyHANAApp-db-deployer
+  - name: NewMyHANAApp-deployer
     type: hdb
     path: gen/db
     parameters:
       buildpack: nodejs_buildpack
     requires:
-      - name: MyHANAApp-db
+      - name: NewMyHANAApp
 
   - name: MyHANAApp
     type: approuter.nodejs
     path: app/router
     parameters:
       keep-existing-routes: true
-      disk-quota: 256M
-      memory: 256M
+      disk-quota: 2000M
+      memory: 2000M
     requires:
       - name: srv-api
         group: destinations
@@ -58,9 +58,9 @@ resources:
       service-plan: application
       path: ./xs-security.json
       config:
-        xsappname: MyHANAApp-${org}-${space}
+        xsappname: myhanaapp
         tenant-mode: dedicated
-  - name: MyHANAApp-db
+  - name: NewMyHANAApp
     type: com.sap.xs.hdi-container
     parameters:
       service: hana
